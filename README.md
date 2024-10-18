@@ -24,7 +24,8 @@ cf) build() : 생성자 대신에 사용하는 초기화 메소드. 가독성과
       - requestMatchers() : 특정 경로에 대한 작업을 진행할 때. 
       - anyRequest() : requestMatchers로 처리하지 못한 나머지 경로
       - permitAll() : 모든 사용자에게 로그인을 하지 않아도 접근 가능 
-      - hasRole() : 특정 role이 있어야 경로에 접근 가능
+      - hasRole() : 로그인이 진행되어야 함(http login form 필요) + 특정 role이 있어야 경로에 접근 가능
       - hasAnyRole() : 여러가지의 role을 설정 -> role값이 있으면 접근 가능
       - authenticated() : 로그인만 하면 모두 접근 가능
-      - denyAll() : 로그인을 진행해도 모든 사용자의 접근 거부 
+      - denyAll() : 로그인을 진행해도 모든 사용자의 접근 거부
+      - 순서가 중요하기에!! 가장 아래에서 모든 경로에 대한 셋팅을 설정해야 함 

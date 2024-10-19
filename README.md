@@ -10,15 +10,16 @@
   - 이것을 수행하려면 **Security configuration class**를 등록해야 함 
 
 ## Security Config class
-cf) build() : 생성자 대신에 사용하는 초기화 메소드. 가독성과 유지보수성 up, 매개변수가 많을 때, 불변 객체일때 
+cf) build() : 생성자 대신에 사용하는 초기화 메소드. 가독성과 유지보수성 up, 매개변수가 많을 때, 불변 객체일때
 - 커스터 마이즈를 통해서 특정 경로에 대한 인가 작업을 수행하게 함
-- 
+- Security config 클래스를 등록하면 로그인, 리다이렉트 과정을 다 커스텀해줘야 함 -> 안하면 그냥 접근 거부 
 
-- 사용하는 애노테이션
+- <사용하는 애노테이션>
   - @EnableSecurity : 이 config 클래스가 스프링 시큐리티에게서도 관리를 받음
   - @Configuration + @Bean
 - 의존하는 클래스 및 인터페이스
   - SecurityFilterChain : 인터페이스
+    
   - HttpSecurity
     - authorizeHttpRequests() : 특정 경로에 요청을 허가 or 거부 
       - requestMatchers() : 특정 경로에 대한 작업을 진행할 때. 
@@ -28,4 +29,9 @@ cf) build() : 생성자 대신에 사용하는 초기화 메소드. 가독성과
       - hasAnyRole() : 여러가지의 role을 설정 -> role값이 있으면 접근 가능
       - authenticated() : 로그인만 하면 모두 접근 가능
       - denyAll() : 로그인을 진행해도 모든 사용자의 접근 거부
-      - 순서가 중요하기에!! 가장 아래에서 모든 경로에 대한 셋팅을 설정해야 함 
+      - 순서가 중요하기에!! 가장 아래에서 모든 경로에 대한 셋팅을 설정해야 함
+    - formLogin() : 로그인 설정 처리
+      - loginPage() : 로그인 페이지 경로
+      - loginProcessingUrl : 프론트에서 받은 아이디, 비밀번호를 전달할 경로
+      - permitAll() : 해당 경로에서 누구나 접근 가능
+    - 

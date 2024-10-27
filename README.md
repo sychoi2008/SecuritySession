@@ -37,3 +37,11 @@ cf) build() : 생성자 대신에 사용하는 초기화 메소드. 가독성과
   - BCryptPassword:
     - 내가 하던 프로젝트에서는 회원이 입력한 pwd + salt(랜덤 번호) -> sha-256(내가 사용한 단방향 해시 암호 알고리즘)으로 돌린 값을 mysql에 저장
     - 스프링 시큐리티는 비크립트(단방향 해시 암호 알고리즘) 
+
+## 깨알 정리
+- JSON -> DTO 객체 자동 변환 : @PostMapping에서 @RequestBody를 통해 받은 JSON 데이터는 DTO 객체 안에 있는 Setter와 Getter로 변환
+- DTO -> JSON으로 자동 변환 : @GetMapping에서 사용. 이때 Getter가 DTO 안에 반드시 있어야 한다
+- 뷰 페이지를 반환하면서 Post를 받아야 할 때에는 @Controller로 충분히 가능
+
+## 회원 가입 로직
+- 

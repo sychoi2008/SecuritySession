@@ -44,4 +44,6 @@ cf) build() : 생성자 대신에 사용하는 초기화 메소드. 가독성과
 - 뷰 페이지를 반환하면서 Post를 받아야 할 때에는 @Controller로 충분히 가능
 
 ## 회원 가입 로직
-- 
+- Role(역할)을 만들자
+  - service 단에서 반드시 `ROLE_`로 시작할 것 -> ROLE_ADMIN, ROLE_USER
+- SecurityConfig에서 회원가입 uri와 api(회원가입 form 전송 누르면 요청할 주소)를 모든 사람들이 접근할 수 있도록 경로 처리 

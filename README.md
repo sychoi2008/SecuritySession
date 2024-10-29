@@ -46,4 +46,12 @@ cf) build() : 생성자 대신에 사용하는 초기화 메소드. 가독성과
 ## 회원 가입 로직
 - Role(역할)을 만들자
   - service 단에서 반드시 `ROLE_`로 시작할 것 -> ROLE_ADMIN, ROLE_USER
-- SecurityConfig에서 회원가입 uri와 api(회원가입 form 전송 누르면 요청할 주소)를 모든 사람들이 접근할 수 있도록 경로 처리 
+- SecurityConfig에서 회원가입 uri와 api(회원가입 form 전송 누르면 요청할 주소)를 모든 사람들이 접근할 수 있도록 경로 처리
+
+## DB 기반 로그인 검증 로직
+- UserDetailsService(미리 스프링에서 제공)를 상속 받아 CustomUserDetailsService 클래스를 만든다
+- DB에 있는 회원으로부터 로그인을 검증하는 로직 -> 로그인 완료 후 ROLE 값에 따른 인증, 인가 
+
+
+## 꺠알 정리 2 <세션과 토큰 로그인>
+- 둘다 사용자 인증을 위한 방식

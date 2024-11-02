@@ -55,3 +55,18 @@ cf) build() : 생성자 대신에 사용하는 초기화 메소드. 가독성과
 
 ## 꺠알 정리 2 <세션과 토큰 로그인>
 - 둘다 사용자 인증을 위한 방식
+
+
+## DB 기반 로그인 검증 로직
+1. 사용자가 "/loginProc"경로로 login.mustache에 있는 <form>의 정보를 넘긴다
+2. 스프링에서 UsernamePasswordAuthenticationFilter가 정보를 가로채서 아이디와 패스워드를 추출하고 그것을 Authentication Manager에게 넘긴다
+3. Authentication Manager는 CustomUserDetailsService를 호출해서 아이디와 패스워드를 넘긴다
+4. CustomUserDetailsService는 DB에서 사용자의 정보를 조회하고 가져온다
+5. 가져온 정보를 CustomUserDetails에 넘기고 CustomUserDetails는 정보를 가공한다 그리고 그 결과를 다시 CustomUserDetailsService에게 넘긴다
+5. CustomUserDetailsService는 가공한 정보를 다시 Authentication Manager에게 넘긴다
+6. Authentication Manager는 받아서 비밀번호를 검증하고 맞으면 Authentication 객체를 생성해 UsernamePasswordAuthenticationFilter에 반환
+7. UsernamePasswordAuthenticationFilter는 Authentication 객체를 SecurityContext에 저장, SecurityContext는 SecurityContextHolder를 통해 애플리케이션 전역에서 접근 가능
+
+## 깨알 정리 3 <Security Context>가 그럼 세션? 
+- 반은 맞음
+  - SecurityContext는 세션 안에 있음 

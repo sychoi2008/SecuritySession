@@ -65,7 +65,7 @@ cf) build() : 생성자 대신에 사용하는 초기화 메소드. 가독성과
 5. 가져온 정보를 CustomUserDetails에 넘기고 CustomUserDetails는 정보를 가공한다 그리고 그 결과를 다시 CustomUserDetailsService에게 넘긴다
 5. CustomUserDetailsService는 가공한 정보를 다시 Authentication Manager에게 넘긴다
 6. Authentication Manager는 받아서 비밀번호를 검증하고 맞으면 Authentication 객체를 생성해 UsernamePasswordAuthenticationFilter에 반환
-7. UsernamePasswordAuthenticationFilter는 Authentication 객체를 SecurityContext에 저장, SecurityContext는 SecurityContextHolder를 통해 애플리케이션 전역에서 접근 가능
+7. UsernamePasswordAuthenticationFilter는 Authentication 객체를 SecurityContext에 저장, SecurityContext는 SecurityContextHolder를 통해 애플리케이션 전역에서 접근 가능 -> 세션 id가 생성이 되면서 클라이언트에 전달됨 
 
 ## 깨알 정리 3 <Security Context>가 그럼 세션? 
 - 반은 맞음
@@ -73,4 +73,6 @@ cf) build() : 생성자 대신에 사용하는 초기화 메소드. 가독성과
  
 ## 만약 시큐리티를 사용하지 않고 세션 로그인 방식을 구현한다면?
 - 세션을 db로 별도로 만들어줘야 함 -> 시큐리티는 자동으로 세션을 만들어줌
-- 세션 id를 클라이언트에게 줘야 함 -> 시큐리티는 자동으로 클라이언트에게 세션 id를 전달 
+- 세션 id를 클라이언트에게 줘야 함 -> 시큐리티는 자동으로 클라이언트에게 세션 id를 전달
+- 세션 만료 자동 처리 -> 시큐리티는 만료가 되면 자동으로 세션을 삭제함
+- 

@@ -65,7 +65,9 @@ cf) build() : 생성자 대신에 사용하는 초기화 메소드. 가독성과
 5. 가져온 정보를 CustomUserDetails에 넘기고 CustomUserDetails는 정보를 가공한다 그리고 그 결과를 다시 CustomUserDetailsService에게 넘긴다
 5. CustomUserDetailsService는 가공한 정보를 다시 Authentication Manager에게 넘긴다
 6. Authentication Manager는 받아서 비밀번호를 검증하고 맞으면 Authentication 객체를 생성해 UsernamePasswordAuthenticationFilter에 반환
-7. UsernamePasswordAuthenticationFilter는 Authentication 객체를 SecurityContext에 저장, SecurityContext는 SecurityContextHolder를 통해 애플리케이션 전역에서 접근 가능 -> 세션 id가 생성이 되면서 클라이언트에 전달됨 
+7. UsernamePasswordAuthenticationFilter는 Authentication 객체를 SecurityContext에 저장, SecurityContext는 SecurityContextHolder를 통해 애플리케이션 전역에서 접근 가능 -> 세션 id가 생성이 되면서 클라이언트에 전달됨
+- Security Context : 세션 안에 있는 Authentication(사용자 정보) 저장소
+- Security Context Holder : Authentication인 사용자 정보를 관리함 
 
 ## 깨알 정리 3 <Security Context>가 그럼 세션? 
 - 반은 맞음
@@ -75,4 +77,16 @@ cf) build() : 생성자 대신에 사용하는 초기화 메소드. 가독성과
 - 세션을 db로 별도로 만들어줘야 함 -> 시큐리티는 자동으로 세션을 만들어줌
 - 세션 id를 클라이언트에게 줘야 함 -> 시큐리티는 자동으로 클라이언트에게 세션 id를 전달
 - 세션 만료 자동 처리 -> 시큐리티는 만료가 되면 자동으로 세션을 삭제함
-- 
+- 보안성을 높이는 것의 구현 어려움
+  - 세션 소멸 시간 지정
+  - 중복 로그인 : 로그인 정보를 동시에 몇 개의 기기에서 유지할 수 있게 할 것인가?(ex: pc 1 + 핸드폰 1)
+  - 고정 보호 : 해커가 세션 아이디를 만들어서 클라이언트에게 전달하게 유도하여 서버 세션에서 해커가 만든 세션 id를 가진 새로운 세션을 생성하게 만듦 -> 시큐리티에서는 클라이언트가 세션 id를 변경하지 못하게 막음 
+
+## 깨알 정리 4 <세션 = 입국심사국?>
+- 세션을 입국심사로 비유할 수 있다
+  - 세션 : 요청이 들어올 때마다 사용자를 검증하는 곳 = 공항 입국심사국 : 입국자들을 대상으로 여권 등을 조회하며 검증한다 
+  - 세션 : 로그인 = 공항 입국심사국 : 물론 아니지만, 외국인 등록이 완료되면 비자 기간동안 그 나라에서 채류가능 
+  - 세션 ID = 외국인 주민등록증
+  - 세션 만료 = 비자연장 
+
+검역소 만료: 세션이 만료되면 다시 검증이 필요해지며, 이때 사용자는 재로그인이 필요할 수 있습니다. 세션 만료는 보안과 시스템 관리의 일환으로, 검역소에 일정 시간이 지나면 다시 상태를 확인하도록 하는 것입니다.
